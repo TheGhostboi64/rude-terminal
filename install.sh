@@ -21,5 +21,8 @@ PROMPT_COMMAND="prompt=1"
 trap 'cmd=\$BASH_COMMAND; \
 [[ "\$prompt" && "\$cmd" != "\$PROMPT_COMMAND" ]] && \
 ~/.rude; unset prompt' DEBUG
+EOF
 
-"Thank you for installing rude-terminal. If you would like to uninstall it, run bash uninstall-rude.sh on root directory."
+chmod +x ~/.rude
+
+echo "Thank you for installing rude-terminal. If you would like to uninstall it, run bash uninstall-rude.sh on root directory."
