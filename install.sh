@@ -1,19 +1,25 @@
 #!/bin/bash
-ghost64get () {
-curl --create-dirs -f -k -L -o "${2}" -S -s --insecure
-https://
-}
 
-clear 
-print "Choose a version to install:" choice
+mkdir /root/bashrc_backup
+
+cp /root/.bashrc /root/bashrc_backup
+
+mv uninstall-rude.sh /root/uninstall-rude.sh
+
+echo "We have backed up your bashrc, which is stored in the bashrc_backup folder(you should be able to find it), because uninstalling rude-terminal will delete bashrc that's currently in the root directory."
+
+PS3="Choose a version to install: "
+
+select choice in clean explict exit; do
 case ${choice} in
-1) rude (clean) ;;
-2) rude (explict) ;;
-3) exit
-"Thank you for using this installer, if you have just installed the file(s), please start bash again, otherwise, reboot, just in case if it needs to reboot to save."
-popd > /dev/null
+clean) mv clean.sh  ~/.rude  ;;
+explict) mv explict.sh  ~/.rude ;;
+exit) exit
 
-			break;;
-	esac
-done
-}
+cat << EOF >> ~/.bashrc
+PROMPT_COMMAND="prompt=1"
+trap 'cmd=\$BASH_COMMAND; \
+[[ "\$prompt" && "\$cmd" != "\$PROMPT_COMMAND" ]] && \
+~/.rude; unset prompt' DEBUG
+
+"Thank you for installing rude-terminal. If you would like to uninstall it, run bash uninstall-rude.sh on root directory."
